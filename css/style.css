@@ -1,1 +1,553 @@
 
+/* ===== 1. VARIABLES (colours, fonts, spacing) ===== */
+:root {
+  --color-text: #1c2026;
+  --color-muted: #646b75;
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-accent: #1d6b8f;
+  --color-accent-soft: #e4eff4;
+  --color-line: #e2e4e7;
+  --font-main: "Segoe UI", Arial, sans-serif;
+  --font-mono: Consolas, "Courier New", monospace;
+  --space: 1rem;
+  --page-width: 68rem;
+  --radius: 10px;
+}
+
+/* ===== 2. BASE ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  font-size: 1.0625rem;          /* 17px */
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+h1 {
+  margin: 0 0 var(--space);
+  font-size: 2.75rem;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Small mono label used above headings */
+.label {
+  display: block;
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.lead {
+  max-width: 36rem;
+  font-size: 1.2rem;
+  color: var(--color-muted);
+}
+
+.muted {
+  color: var(--color-muted);
+}
+
+.text-link {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  margin-right: var(--space);
+  border-radius: var(--radius);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--color-accent);
+}
+
+/* ===== 3. HEADER + NAV ===== */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space);
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: calc(var(--space) * 2) calc(var(--space) * 2);
+}
+
+.logo {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.logo-dot {
+  color: var(--color-accent);
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  display: block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--color-text);
+}
+
+nav a.active {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ===== 4. PAGE LAYOUT ===== */
+main {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 calc(var(--space) * 2);
+}
+
+main section {
+  padding: calc(var(--space) * 3) 0;
+}
+
+.page-intro {
+  padding-top: calc(var(--space) * 5);
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* ===== 5. HOME ===== */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: calc(var(--space) * 4);
+  padding-top: calc(var(--space) * 5);
+  padding-bottom: calc(var(--space) * 5);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+}
+
+.hero-links {
+  margin-top: calc(var(--space) * 2);
+}
+
+.profile-photo {
+  border-radius: 50%;
+  border: 6px solid var(--color-surface);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.about,
+.facts {
+  border-top: 1px solid var(--color-line);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--space) * 3);
+}
+
+.about-grid p {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.fact-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc(var(--space) * 2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--color-muted);
+}
+
+.fact-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* ===== 5b. PROJECT SLIDESHOW (CSS only, no JavaScript) ===== */
+/* 4 slides + a copy of slide 1 at the end so the loop has no jump.
+   One cycle = 12s: each slide stays 2.5s, then slides across in 0.5s. */
+.showcase {
+  padding-top: 0;
+}
+
+/* A light card, like the cards on the Skills page, so the dark
+   screenshots sit inside the page instead of clashing with it. */
+.slideshow {
+  overflow: hidden;
+  max-width: 48rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.slides {
+  display: flex;
+  width: 500%;                   /* 5 slides, each 20% of this */
+  animation: slide-across 12s ease-in-out infinite;
+}
+
+.slideshow:hover .slides {
+  animation-play-state: paused;  /* hold still while someone is looking */
+}
+
+.slide {
+  flex: none;
+  width: 20%;
+  margin: 0;
+  padding: 0.75rem 0.75rem 0;    /* white frame around each screenshot */
+}
+
+.slide img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;           /* the screenshots are 2:1 */
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  border-radius: calc(var(--radius) - 4px);
+}
+
+/* Project name sits on the white card, under the screenshot */
+.slide figcaption {
+  padding: 0.75rem 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+}
+
+.slide figcaption::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.6rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+@keyframes slide-across {
+  0%, 20.83%  { transform: translateX(0); }
+  25%, 45.83% { transform: translateX(-20%); }
+  50%, 70.83% { transform: translateX(-40%); }
+  75%, 95.83% { transform: translateX(-60%); }
+  100%        { transform: translateX(-80%); }
+}
+
+/* Visitors who ask for less motion get a swipeable strip instead */
+@media (prefers-reduced-motion: reduce) {
+  .slideshow {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .slides {
+    width: 400%;
+    animation: none;
+  }
+
+  .slide {
+    width: 25%;
+    scroll-snap-align: start;
+  }
+
+  .slide-copy {
+    display: none;
+  }
+}
+
+/* ===== 6. SKILLS ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(var(--space) * 1.5);
+}
+
+.card {
+  padding: calc(var(--space) * 1.75);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+}
+
+.card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--color-muted);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--space) * 3);
+  border-top: 1px solid var(--color-line);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag-list li {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 0.95rem;
+}
+
+/* ===== 7. PROJECTS ===== */
+.project {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: var(--space);
+  padding: calc(var(--space) * 2) 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.project:first-child {
+  padding-top: 0;
+}
+
+.project-number {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--color-accent);
+}
+
+.project h2 {
+  margin-bottom: 0.25rem;
+  font-size: 1.5rem;
+}
+
+.project p {
+  max-width: 44rem;
+}
+
+.project-summary {
+  font-size: 1.15rem;
+}
+
+.project-points {
+  max-width: 44rem;
+  margin: 0 0 var(--space);
+  padding-left: 1.1rem;
+  color: var(--color-muted);
+}
+
+.project-points li {
+  margin-bottom: 0.4rem;
+}
+
+.project .tag-list {
+  margin-bottom: var(--space);
+}
+
+.project-meta {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+/* ===== 8. EDUCATION TABLE ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+}
+
+caption {
+  text-align: left;
+  padding-bottom: 0.75rem;
+  color: var(--color-muted);
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+th {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.year {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  color: var(--color-accent);
+}
+
+/* ===== 9. CONTACT ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--space) * 1.5);
+}
+
+.contact-card {
+  display: block;
+  padding: calc(var(--space) * 2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+.contact-card:hover {
+  border-color: var(--color-accent);
+}
+
+.contact-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.contact-card-wide {
+  grid-column: 1 / -1;
+}
+
+/* ===== 9b. HIDDEN EASTER EGG (education page) ===== */
+.secret {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 1rem 1.5rem;          /* makes the hover area bigger than the text */
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--color-bg);        /* same as the page background = invisible */
+  transition: color 0.3s ease;
+  cursor: default;
+}
+
+.secret:hover {
+  color: var(--color-accent);
+}
+
+.secret sub,
+.secret sup {
+  line-height: 0;                /* stop the sub/sup from changing the line height */
+}
+
+/* ===== 10. FOOTER ===== */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - var(--space) * 4);
+  max-width: calc(var(--page-width) - var(--space) * 4);
+  margin: calc(var(--space) * 4) auto 0;
+  padding: calc(var(--space) * 2) 0;
+  border-top: 1px solid var(--color-line);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* ===== 11. SMALL SCREENS ===== */
+@media (max-width: 760px) {
+  h1,
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+
+  .hero,
+  .about-grid,
+  .card-grid,
+  .split,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero img {
+    order: -1;
+    width: 160px;
+  }
+
+  .fact-list {
+    grid-template-columns: 1fr;
+  }
+
+  .project {
+    grid-template-columns: 1fr;
+  }
+}
